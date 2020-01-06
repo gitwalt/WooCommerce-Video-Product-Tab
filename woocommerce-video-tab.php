@@ -2,7 +2,7 @@
 /*
  * Plugin Name: WooCommerce Video Product Tab
  * Plugin URI: http://www.sebs-studio.com/wp-plugins/woocommerce-video-product-tab
- * Description: Extends WooCommerce to allow you to add a Video to the Product page. An additional tab is added on the single products page to allow your customers to view the video you embeded. 
+ * Description: Extends WooCommerce to allow you to add a Video to the Product page. An additional tab is added on the single products page to allow your customers to view the video you embeded.
  * Version: 2.3.1
  * Author: Sebs Studio
  * Author URI: http://www.sebs-studio.com
@@ -11,7 +11,7 @@
  *
  * Text Domain: wc_video_product_tab
  * Domain Path: /lang/
- * 
+ *
  * Copyright: © 2013 Sebs Studio.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -176,7 +176,7 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 			/**
 			 * Lazy-load the product_tabs meta data, and return true if it exists,
 			 * false otherwise.
-			 * 
+			 *
 			 * @return true if there is video tab data, false otherwise.
 			 */
 			private function product_has_video_tabs($product){
@@ -216,11 +216,12 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 			public function product_write_panel(){
 				global $post;
 
+				$tab_data = array();
 				// Pull the video tab data out of the database
 				$tab_data = maybe_unserialize(get_post_meta($post->ID, 'woo_video_product_tab', true));
 
 				if(empty($tab_data)){
-					$tab_data[] = array('title' => '', 'hide_title' => '', 'video' => '');
+					$tab_data = array(0 => array('title' => '', 'hide_title' => '', 'video' => ''));
 				}
 
 				// Display the video tab panel
@@ -228,26 +229,26 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 					echo '<div id="video_tab" class="panel woocommerce_options_panel">';
 					$this->wc_video_product_tab_text_input(
 															array(
-																'id' => '_tab_video_title', 
-																'label' => __('Video Title', 'wc_video_product_tab'), 
-																'placeholder' => __('Enter your title here.', 'wc_video_product_tab'), 
-																'value' => $tab['title'], 
+																'id' => '_tab_video_title',
+																'label' => __('Video Title', 'wc_video_product_tab'),
+																'placeholder' => __('Enter your title here.', 'wc_video_product_tab'),
+																'value' => $tab['title'],
 																'style' => 'width:70%;',
 															)
 					);
 					woocommerce_wp_checkbox( array(
-												'id' => '_hide_title', 
-												'label' => __('Hide Title ?', 'wc_video_product_tab'), 
-												'description' => __('Enable this option to hide the title in the video tab.', 'wc_video_product_tab'), 
-												'value' => $tab['hide_title'], 
+												'id' => '_hide_title',
+												'label' => __('Hide Title ?', 'wc_video_product_tab'),
+												'description' => __('Enable this option to hide the title in the video tab.', 'wc_video_product_tab'),
+												'value' => $tab['hide_title'],
 											)
 					);
 					$this->wc_video_product_tab_textarea_input(
 															array(
-																'id' => '_tab_video', 
-																'label' => __('Embed Code', 'wc_video_product_tab'), 
-																'placeholder' => __('Place your video embed code here.', 'wc_video_product_tab'), 
-																'value' => $tab['video'], 
+																'id' => '_tab_video',
+																'label' => __('Embed Code', 'wc_video_product_tab'),
+																'placeholder' => __('Place your video embed code here.', 'wc_video_product_tab'),
+																'value' => $tab['video'],
 																'style' => 'width:70%;height:140px;',
 															)
 					);
@@ -303,7 +304,7 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 			/**
 			 * Saves the data inputed into the product boxes, as post meta data
 			 * identified by the name 'woo_video_product_tab'
-			 * 
+			 *
 			 * @param int $post_id the post (product) identifier
 			 * @param stdClass $post the post (product)
 			 */
@@ -326,7 +327,7 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 					$tab_id = '';
 					// convert the tab title into an id string
 					$tab_id = strtolower($tab_title);
-					$tab_id = preg_replace("/[^\w\s]/",'',$tab_id); // remove non-alphas, numbers, underscores or whitespace 
+					$tab_id = preg_replace("/[^\w\s]/",'',$tab_id); // remove non-alphas, numbers, underscores or whitespace
 					$tab_id = preg_replace("/_+/", ' ', $tab_id); // replace all underscores with single spaces
 					$tab_id = preg_replace("/\s+/", '-', $tab_id); // replace all multiple spaces with single dashes
 					$tab_id = 'tab-'.$tab_id; // prepend with 'tab-' string
@@ -339,7 +340,7 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 		}
 	}
 
-	/* 
+	/*
 	 * Instantiate plugin class and add it to the set of globals.
 	 */
 	$woocommerce_video_tab = new WooCommerce_Video_Product_Tab();
