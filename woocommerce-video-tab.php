@@ -73,7 +73,7 @@ if(in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_o
 				// backend stuff
 				add_filter('plugin_row_meta', array($this, 'add_support_link'), 10, 2);
 				add_action('woocommerce_product_write_panel_tabs', array($this, 'product_write_panel_tab'));
-				add_action('woocommerce_product_write_panels', array($this, 'product_write_panel'));
+				add_action('woocommerce_product_data_panels', array($this, 'product_write_panel'));
 				add_action('woocommerce_process_product_meta', array($this, 'product_save_data'), 10, 2);
 				// frontend stuff
 				if(version_compare(WOOCOMMERCE_VERSION, "2.0", '>=')){
