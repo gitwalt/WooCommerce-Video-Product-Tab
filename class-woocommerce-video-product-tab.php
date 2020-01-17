@@ -189,8 +189,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * @return true if there is video tab data, false otherwise.
 			 */
 			private function product_has_video_tabs( $product ) {
+				$product_id = $product->get_id();
 				if ( $this->tab_data === false ) {
-					$this->tab_data = maybe_unserialize( get_post_meta( $product->id, 'woo_video_product_tab', true ) );
+					$this->tab_data = maybe_unserialize( get_post_meta( $product_id, 'woo_video_product_tab', true ) );
 				}
 				// tab must at least have a embed code inserted.
 				return ! empty( $this->tab_data ) && ! empty( $this->tab_data[0] ) && ! empty( $this->tab_data[0]['video'] );
