@@ -6,8 +6,8 @@
  * Version: 2.3.1
  * Author: Sebs Studio
  * Author URI: http://www.sebs-studio.com
- * Requires at least: 3.1
- * Tested up to: 3.5.1
+ * Requires at least: 5.0
+ * Tested up to: 5.3
  *
  * Text Domain: wc_video_product_tab
  * Domain Path: /lang/
@@ -32,10 +32,10 @@ if ( ! function_exists( 'woo_video_tab_min_required' ) ) {
 		$plugin      = plugin_basename( __FILE__ );
 		$plugin_data = get_plugin_data( __FILE__, false );
 
-		if ( version_compare( $wp_version, '3.3', '<' ) ) {
+		if ( version_compare( $wp_version, '5.0', '<' ) ) {
 			if ( is_plugin_active( $plugin ) ) {
 				deactivate_plugins( $plugin );
-				wp_die( "'" . $plugin_data['Name'] . "' requires WordPress 3.3 or higher, and has been deactivated! Please upgrade WordPress and try again.<br /><br />Back to <a href='" . admin_url() . "'>WordPress Admin</a>." );
+				wp_die( "'" . esc_html( $plugin_data['Name'] ) . "' requires WordPress 5.0 or higher, and has been deactivated! Please upgrade WordPress and try again.<br /><br />Back to <a href='" . esc_url( admin_url() ) . "'>WordPress Admin</a>." );
 			}
 		}
 	}
