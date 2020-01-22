@@ -51,18 +51,51 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	load_plugin_textdomain( 'wc_video_product_tab', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
 	if ( ! class_exists( 'WooCommerce_Video_Product_Tab' ) ) {
+		/**
+		 * Wie muss der Kommentar für eine solche Klasse aussehen?
+		 */
 		class WooCommerce_Video_Product_Tab {
 
+			/**
+			 * Kurzbeschreibung
+			 *
+			 * @var type
+			 */
 			public static $plugin_prefix;
+
+			/**
+			 * Kurzbeschreibung
+			 *
+			 * @var type
+			 */
 			public static $plugin_url;
+
+			/**
+			 * Kurzbeschreibung
+			 *
+			 * @var type
+			 */
 			public static $plugin_path;
+
+			/**
+			 * Kurzbeschreibung
+			 *
+			 * @var type
+			 */
 			public static $plugin_basefile;
 
+			/**
+			 * Kurzbeschreibung
+			 *
+			 * @var type
+			 */
 			private $tab_data = false;
 
 			/**
 			 * Gets things started by adding an action to initialize this plugin once
 			 * WooCommerce is known to be active and initialized
+			 *
+			 * @return type
 			 */
 			public function __construct() {
 				self::$plugin_prefix   = 'wc_video_tab_';
@@ -94,12 +127,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			/**
 			 * Add donation link to plugin page.
+			 *
+			 * @param type $links All info links in plugin entry.
+			 * @param type $file Plugin link.
 			 */
 			public function add_support_link( $links, $file ) {
 				if ( ! current_user_can( 'install_plugins' ) ) {
 					return $links;
 				}
-				if ( $file == self::$plugin_basefile ) {
+				if ( $file === self::$plugin_basefile ) {
 					$links[] = '<a href="http://docs.sebs-studio.com/user-guide/extension/woocommerce-video-product-tab/" target="_blank">' . __( 'Docs', 'wc_video_product_tab' ) . '</a>';
 					$links[] = '<a href="http://wordpress.org/support/plugin/woocommerce-video-product-tab" target="_blank">' . __( 'Support', 'wc_video_product_tab' ) . '</a>';
 					$links[] = '<a href="http://www.sebs-studio.com/donation/" target="_blank">' . __( 'Donate', 'wc_video_product_tab' ) . '</a>';
@@ -111,6 +147,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			/**
 			 * Write the video tab on the product view page for WC 2.0+.
 			 * In WooCommerce these are handled by templates.
+			 *
+			 * @param type $tabs Kommentar.
+			 * @return type
 			 */
 			public function video_product_tabs_two( $tabs ) {
 				global $product;
@@ -137,7 +176,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 				if ( $this->product_has_video_tabs( $product ) ) {
 					foreach ( $this->tab_data as $tab ) {
-						echo "<li><a href=\"#{$tab['id']}\">" . $tab['title'] . '</a></li>';
+						echo "<li><a href=\"#{$tab['id']}\">" . esc_html( $tab['title'] ) . '</a></li>';
 					}
 				}
 			}
@@ -317,13 +356,27 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$field['value'] = get_post_meta( $thepostid, $field['id'], true );
 				}
 
-				echo '<p class="form-field ' . $field['id'] . '_field"><label for="' . $field['id'] . '">' . $field['label'] . '</label><textarea class="' . $field['class'] . '" name="' . $field['id'] . '" id="' . $field['id'] . '" placeholder="' . $field['placeholder'] . '" rows="2" cols="20"' . ( isset( $field['style'] ) ? ' style="' . $field['style'] . '"' : '' ) . '">' . esc_textarea( $field['value'] ) . '</textarea>';
-
 				if ( isset( $field['description'] ) && $field['description'] ) {
-					echo '<span class="description">' . $field['description'] . '</span>';
+					$decription = '<span class="description">' . $field['description'] . '</span>';
 				}
 
-				echo '</p>';
+				printf( '<p class="form-field %1$s_field"><label for="%1$s">%2$s</label><textarea class="%3$s" name="%1$s" id="%1$s" placeholder="%4$s" rows="2" cols="20" %5$s>%6$s</textarea>%7$s</p>',
+					esc_attr( $field['id'] ),
+					esc_html( $field['label'] ),
+					esc_attr( $field['class'] ),
+					esc_attr( $field['placeholder'] ),
+					null !== esc_attr( $field['style'] ) ? ' style="' . esc_attr( $field['style'] ) . '"' : '',
+					esc_textarea( $field['value'] ),
+					esc_html( $description )
+				);
+
+
+
+
+				// echo '<p class="form-field ' . $field_id . '_field"><label for="' . $field_id . '">' . $field_label . '</label><textarea class="' . $field['class'] . '" name="' . $field_id . '" id="' . $field_id . '" placeholder="' . $field['placeholder'] . '" rows="2" cols="20"' . ( isset( $field['style'] ) ? ' style="' . $field['style'] . '"' : '' ) . '">' . esc_textarea( $field['value'] ) . '</textarea>';
+
+
+				// echo '</p>';
 			}
 
 			/**
@@ -375,10 +428,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	$woocommerce_video_tab = new WooCommerce_Video_Product_Tab();
 } else {
 	add_action( 'admin_notices', 'wc_video_tab_error_notice' );
+	/**
+	 * Error Notice in admin notices: Video Product Tab requires Woocommerce Plugin.
+	 *
+	 * @return type Message string.
+	 */
 	function wc_video_tab_error_notice() {
 		global $current_screen;
-		if ( $current_screen->parent_base == 'plugins' ) {
-			echo '<div class="error"><p>WooCommerce Video Product Tab ' . __( 'requires <a href="http://www.woothemes.com/woocommerce/" target="_blank">WooCommerce</a> to be activated in order to work. Please install and activate <a href="' . admin_url( 'plugin-install.php?tab=search&type=term&s=WooCommerce' ) . '" target="_blank">WooCommerce</a> first.', 'wc_video_product_tab' ) . '</p></div>';
+		if ( 'plugins' === $current_screen->parent_base ) {
+			echo '<div class="error"><p>WooCommerce Video Product Tab ' . esc_html_e( 'requires <a href="http://www.woothemes.com/woocommerce/" target="_blank">WooCommerce</a> to be activated in order to work. Please install and activate <a href="' . admin_url( 'plugin-install.php?tab=search&type=term&s=WooCommerce' ) . '" target="_blank">WooCommerce</a> first.', 'wc_video_product_tab' ) . '</p></div>';
 		}
 	}
 }
