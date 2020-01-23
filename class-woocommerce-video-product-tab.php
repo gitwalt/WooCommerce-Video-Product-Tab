@@ -357,26 +357,20 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				}
 
 				if ( isset( $field['description'] ) && $field['description'] ) {
-					$decription = '<span class="description">' . $field['description'] . '</span>';
+					$description = '<span class="description">' . $field['description'] . '</span>';
+				} else {
+					$description = '';
 				}
 
 				printf( '<p class="form-field %1$s_field"><label for="%1$s">%2$s</label><textarea class="%3$s" name="%1$s" id="%1$s" placeholder="%4$s" rows="2" cols="20" %5$s>%6$s</textarea>%7$s</p>',
 					esc_attr( $field['id'] ),
 					esc_html( $field['label'] ),
-					esc_attr( $field['class'] ),
+					esc_attr( $ield['class'] ),
 					esc_attr( $field['placeholder'] ),
 					null !== esc_attr( $field['style'] ) ? ' style="' . esc_attr( $field['style'] ) . '"' : '',
 					esc_textarea( $field['value'] ),
 					esc_html( $description )
 				);
-
-
-
-
-				// echo '<p class="form-field ' . $field_id . '_field"><label for="' . $field_id . '">' . $field_label . '</label><textarea class="' . $field['class'] . '" name="' . $field_id . '" id="' . $field_id . '" placeholder="' . $field['placeholder'] . '" rows="2" cols="20"' . ( isset( $field['style'] ) ? ' style="' . $field['style'] . '"' : '' ) . '">' . esc_textarea( $field['value'] ) . '</textarea>';
-
-
-				// echo '</p>';
 			}
 
 			/**
