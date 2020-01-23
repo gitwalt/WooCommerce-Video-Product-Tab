@@ -192,8 +192,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 				if ( $this->product_has_video_tabs( $product ) ) {
 					foreach ( $this->tab_data as $tab ) {
-						if ( $tab['hide_title'] == '' ) {
-							echo '<h2>' . $tab['title'] . '</h2>';
+						if ( '' === $tab['hide_title'] ) {
+							echo '<h2>' . esc_html( $tab['title'] ) . '</h2>';
 						}
 						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', $tab['video'], $tab['id'] ) );
 					}
@@ -212,7 +212,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				if ( $this->product_has_video_tabs( $product ) ) {
 					foreach ( $this->tab_data as $tab ) {
 						echo '<div class="panel" id="' . $tab['id'] . '">';
-						if ( $tab['hide_title'] == '' ) {
+						if ( '' === $tab['hide_title'] ) {
 							echo '<h2>' . $tab['title'] . '</h2>';
 						}
 						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', $tab['video'], $tab['id'] ) ); // Altered in version 1.2.
@@ -225,11 +225,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * Lazy-load the product_tabs meta data, and return true if it exists,
 			 * false otherwise.
 			 *
+			 * @param object $product Product data.
+			 *
 			 * @return true if there is video tab data, false otherwise.
 			 */
 			private function product_has_video_tabs( $product ) {
 				$product_id = $product->get_id();
-				if ( $this->tab_data === false ) {
+				if ( false === $this->tab_data ) {
 					$this->tab_data = maybe_unserialize( get_post_meta( $product_id, 'woo_video_product_tab', true ) );
 				}
 				// tab must at least have a embed code inserted.
@@ -255,7 +257,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				<?php echo $active_style; ?>
 				</style>
 				<?php
-				echo '<li class="video_tab"><a href="#video_tab">' . __( 'Video', 'wc_video_product_tab' ) . '</a></li>';
+				echo '<li class="video_tab"><a href="#video_tab">' . esc_html__( 'Video', 'wc_video_product_tab' ) . '</a></li>';
 			}
 
 			/**
@@ -383,11 +385,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			public function product_save_data( $post_id, $post ) {
 
 				$tab_title = stripslashes( $_POST['_tab_video_title'] );
-				if ( $tab_title == '' ) {
+				if ( '' === $tab_title ) {
 					$tab_title = __( 'Video', 'wc_video_product_tab' );
 				}
 				$hide_title = stripslashes( $_POST['_hide_title'] );
-				$tab_video = stripslashes( $_POST['_tab_video'] );
+				$tab_video  = stripslashes( $_POST['_tab_video'] );
 
 				if ( empty( $tab_video ) && get_post_meta( $post_id, 'woo_video_product_tab', true ) ) {
 					// clean up if the video tabs are removed.
