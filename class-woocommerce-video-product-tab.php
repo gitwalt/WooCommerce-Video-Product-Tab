@@ -43,7 +43,7 @@ if ( ! function_exists( 'woo_video_tab_min_required' ) ) {
 }
 
 // Checks if the WooCommerce plugins is installed and active.
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 
 	/* Localisation */
 	$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-video-product-tab' );
