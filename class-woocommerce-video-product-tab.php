@@ -195,7 +195,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						if ( '' === $tab['hide_title'] ) {
 							echo '<h2>' . esc_html( $tab['title'] ) . '</h2>';
 						}
-						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', $tab['video'], $tab['id'] ) );
+						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', esc_attr( $tab['video'] ), esc_attr( $tab['id'] ) ) );
 					}
 				}
 			}
@@ -211,11 +211,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 				if ( $this->product_has_video_tabs( $product ) ) {
 					foreach ( $this->tab_data as $tab ) {
-						echo '<div class="panel" id="' . $tab['id'] . '">';
+						echo '<div class="panel" id="' . esc_attr( $tab['id'] ) . '">';
 						if ( '' === $tab['hide_title'] ) {
-							echo '<h2>' . $tab['title'] . '</h2>';
+							echo '<h2>' . esc_html( $tab['title'] ) . '</h2>';
 						}
-						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', $tab['video'], $tab['id'] ) ); // Altered in version 1.2.
+						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', esc_html( $tab['video'] ), esc_attr( $tab['id'] ) ) ); // Altered in version 1.2.
 						echo '</div>';
 					}
 				}
@@ -253,8 +253,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				}
 				?>
 				<style type="text/css">
-				#woocommerce-product-data .product_data_tabs .video_tab a { <?php echo $style; ?> }
-				<?php echo $active_style; ?>
+				#woocommerce-product-data .product_data_tabs .video_tab a { <?php echo esc_attr( $style ); ?> }
+				<?php echo esc_attr( $active_style ); ?>
 				</style>
 				<?php
 				echo '<li class="video_tab"><a href="#video_tab">' . esc_html__( 'Video', 'wc_video_product_tab' ) . '</a></li>';
@@ -327,11 +327,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
 				$field['type']          = isset( $field['type'] ) ? $field['type'] : 'text';
 
-				echo '<p class="form-field ' . esc_attr( $field['id'] ) . '_field ' . esc_attr( $field['wrapper_class'] ) . '"><label for="' . esc_attr( $field['id'] ) . '">' . wp_kses_post( $field['label'] ) . '</label><input type="' . esc_attr( $field['type'] ) . '" class="' . esc_attr( $field['class'] ) . '" name="' . esc_attr( $field['name'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $field['value'] ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '"' . ( isset( $field['style'] ) ? ' style="' . $field['style'] . '"' : '' ) . ' /> ';
+				echo '<p class="form-field ' . esc_attr( $field['id'] ) . '_field ' . esc_attr( $field['wrapper_class'] ) . '"><label for="' . esc_attr( $field['id'] ) . '">' . wp_kses_post( $field['label'] ) . '</label><input type="' . esc_attr( $field['type'] ) . '" class="' . esc_attr( $field['class'] ) . '" name="' . esc_attr( $field['name'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $field['value'] ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '"' . ( isset( $field['style'] ) ? ' style="' . esc_attr( $field['style'] ) . '"' : '' ) . ' /> ';
 
 				if ( ! empty( $field['description'] ) ) {
 					if ( isset( $field['desc_tip'] ) ) {
-						echo '<img class="help_tip" data-tip="' . esc_attr( $field['description'] ) . '" src="' . $woocommerce->plugin_url() . '/assets/images/help.png" height="16" width="16" />';
+						echo '<img class="help_tip" data-tip="' . esc_attr( $field['description'] ) . '" src="' . esc_url( $woocommerce->plugin_url() ) . '/assets/images/help.png" height="16" width="16" />';
 					} else {
 						echo '<span class="description">' . wp_kses_post( $field['description'] ) . '</span>';
 					}
@@ -426,13 +426,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	add_action( 'admin_notices', 'wc_video_tab_error_notice' );
 	/**
 	 * Error Notice in admin notices: Video Product Tab requires Woocommerce Plugin.
-	 *
-	 * @return type Message string.
 	 */
 	function wc_video_tab_error_notice() {
 		global $current_screen;
 		if ( 'plugins' === $current_screen->parent_base ) {
-			echo '<div class="error"><p>WooCommerce Video Product Tab ' . esc_html_e( 'requires <a href="http://www.woothemes.com/woocommerce/" target="_blank">WooCommerce</a> to be activated in order to work. Please install and activate <a href="' . admin_url( 'plugin-install.php?tab=search&type=term&s=WooCommerce' ) . '" target="_blank">WooCommerce</a> first.', 'wc_video_product_tab' ) . '</p></div>';
+			echo '<div class="error"><p>WooCommerce Video Product Tab ' . esc_html( 'requires <a href="http://www.woothemes.com/woocommerce/" target="_blank">WooCommerce</a> to be activated in order to work. Please install and activate <a href="' . admin_url( 'plugin-install.php?tab=search&type=term&s=WooCommerce' ) . '" target="_blank">WooCommerce</a> first.', 'wc_video_product_tab' ) . '</p></div>';
 		}
 	}
 }
