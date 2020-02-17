@@ -249,11 +249,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$active_style = '';
 				} else {
 					$style        = 'padding:9px 9px 9px 34px; line-height:16px; border-bottom:1px solid #d5d5d5; text-shadow:0 1px 1px #fff; color:#555555; background-image:url(' . $tab_icon . '); background-repeat:no-repeat; background-position:9px 9px;';
-					$active_style = '#woocommerce-product-data ul.product_data_tabs li.my_plugin_tab.active a { border-bottom: 1px solid #F8F8F8; }';
+					$active_style = '#woocommerce-product-data .product_data_tabs .my_plugin_tab.active a { border-bottom: 1px solid #F8F8F8; }';
 				}
 				?>
 				<style type="text/css">
-				#woocommerce-product-data ul.product_data_tabs li.video_tab a { <?php echo $style; ?> }
+				#woocommerce-product-data .product_data_tabs .video_tab a { <?php echo $style; ?> }
 				<?php echo $active_style; ?>
 				</style>
 				<?php
@@ -367,7 +367,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				printf( '<p class="form-field %1$s_field"><label for="%1$s">%2$s</label><textarea class="%3$s" name="%1$s" id="%1$s" placeholder="%4$s" rows="2" cols="20" %5$s>%6$s</textarea>%7$s</p>',
 					esc_attr( $field['id'] ),
 					esc_html( $field['label'] ),
-					esc_attr( $ield['class'] ),
+					esc_attr( $field['class'] ),
 					esc_attr( $field['placeholder'] ),
 					null !== esc_attr( $field['style'] ) ? ' style="' . esc_attr( $field['style'] ) . '"' : '',
 					esc_textarea( $field['value'] ),
