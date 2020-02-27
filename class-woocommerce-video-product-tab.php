@@ -315,6 +315,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			/**
 			 * Output a text input box.
+			 *
+			 * @param string $field Input text.
 			 */
 			public function wc_video_product_tab_text_input( $field ) {
 				global $thepostid, $post, $woocommerce;
@@ -341,6 +343,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 			/**
 			 * Output a textarea box.
+			 *
+			 * @param string $field Input from textarea.
 			 */
 			public function wc_video_product_tab_textarea_input( $field ) {
 				global $thepostid, $post;
