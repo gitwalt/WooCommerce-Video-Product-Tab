@@ -389,12 +389,24 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 */
 			public function product_save_data( $post_id, $post ) {
 
-				$tab_title = stripslashes( $_POST['_tab_video_title'] );
-				if ( '' === $tab_title ) {
+				if ( ! empty( $_POST['_tab_video_title'] ) ) {
+					$tab_title = sanitize_text_field( wp_unslash( $_POST['_tab_video_title'] ) );
+				} else {
 					$tab_title = __( 'Video', 'wc_video_product_tab' );
 				}
-				$hide_title = stripslashes( $_POST['_hide_title'] );
-				$tab_video  = stripslashes( $_POST['_tab_video'] );
+
+				// if ( isset( $_POST['_hide_title'] ) ) {
+				// 	$hide_title = sanitize_text_field( wp_unslash( $_POST['_hide_title'] ) );
+				// }
+			 	// if ( '' === $tab_title ) {}
+				// $hide_title = stripslashes( $_POST['_hide_title'] );
+				// $tab_video  = stripslashes( $_POST['_tab_video'] );
+
+				$hide_title =  wp_unslash( $_POST['_hide_title'] );
+
+				if ( ! empty( $_POST['_tab_video'] ) ) {
+					$tab_video = sanitize_textarea_field( wp_unslash( $_POST['_tab_video'] ) );
+				}
 
 				if ( empty( $tab_video ) && get_post_meta( $post_id, 'woo_video_product_tab', true ) ) {
 					// clean up if the video tabs are removed.
