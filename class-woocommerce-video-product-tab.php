@@ -368,7 +368,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$description = '';
 				}
 
-				printf( '<p class="form-field %1$s_field"><label for="%1$s">%2$s</label><textarea class="%3$s" name="%1$s" id="%1$s" placeholder="%4$s" rows="2" cols="20" %5$s>%6$s</textarea>%7$s</p>',
+				printf(
+					'<p class="form-field %1$s_field"><label for="%1$s">%2$s</label><textarea class="%3$s" name="%1$s" id="%1$s" placeholder="%4$s" rows="2" cols="20" %5$s>%6$s</textarea>%7$s</p>',
 					esc_attr( $field['id'] ),
 					esc_html( $field['label'] ),
 					esc_attr( $field['class'] ),
