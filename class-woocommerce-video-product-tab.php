@@ -402,7 +402,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				// $hide_title = stripslashes( $_POST['_hide_title'] );
 				// $tab_video  = stripslashes( $_POST['_tab_video'] );
 
-				$hide_title =  wp_unslash( $_POST['_hide_title'] );
+				$hide_title = stripslashes( $_POST['_hide_title'] );
 
 				if ( ! empty( $_POST['_tab_video'] ) ) {
 					$tab_video = sanitize_textarea_field( wp_unslash( $_POST['_tab_video'] ) );
