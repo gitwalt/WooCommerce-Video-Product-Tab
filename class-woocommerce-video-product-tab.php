@@ -70,10 +70,15 @@ if ( ! function_exists( 'woo_video_tab_min_required' ) ) {
 // Checks if the WooCommerce plugins is installed and active.
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 
-	/* Localisation */
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-video-product-tab' );
-	load_textdomain( 'wc_video_product_tab', WP_PLUGIN_DIR . '/' . plugin_basename( dirname( __FILE__ ) ) . '/lang/wc_video_product_tab-' . $locale . '.mo' );
-	load_plugin_textdomain( 'wc_video_product_tab', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+	/**
+	 * Localisation
+	 */
+	function load_txtdomain() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-video-product-tab' );
+		load_textdomain( 'wc_video_product_tab', WP_PLUGIN_DIR . '/' . plugin_basename( dirname( __FILE__ ) ) . '/lang/wc_video_product_tab-' . $locale . '.mo' );
+		load_plugin_textdomain( 'wc_video_product_tab', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
+	}
+	add_action( 'plugins_loaded', 'load_txtdomain' );
 
 	if ( ! class_exists( 'WooCommerce_Video_Product_Tab' ) ) {
 		/**
