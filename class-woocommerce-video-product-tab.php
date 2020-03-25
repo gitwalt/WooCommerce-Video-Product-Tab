@@ -23,6 +23,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Add iFrame to allowed wp_kses_post tags
+ *
+ * @param array  $tags Allowed tags, attributes, and/or entities.
+ * @param string $context Context to judge allowed tags by. Allowed values are 'post'.
+ *
+ * @return array
+ */
+function custom_wpkses_post_tags( $tags, $context ) {
+
+	if ( 'post' === $context ) {
+		$tags['iframe'] = array(
+			'src'             => true,
+			'height'          => true,
+			'width'           => true,
+			'frameborder'     => true,
+			'allowfullscreen' => true,
+		);
+	}
+
+	return $tags;
+}
+
+add_filter( 'wp_kses_allowed_html', 'custom_wpkses_post_tags', 10, 2 );
+
 if ( ! function_exists( 'woo_video_tab_min_required' ) ) {
 	/**
 	 * Function to check minimum required WordPress version (3.3)
@@ -195,7 +220,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						if ( '' === $tab['hide_title'] ) {
 							echo '<h2>' . esc_html( $tab['title'] ) . '</h2>';
 						}
-						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', esc_attr( $tab['video'] ), esc_attr( $tab['id'] ) ) );
+						echo wp_kses_post( $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', $tab['video'], $tab['id'] ) ) );
 					}
 				}
 			}
@@ -215,7 +240,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						if ( '' === $tab['hide_title'] ) {
 							echo '<h2>' . esc_html( $tab['title'] ) . '</h2>';
 						}
-						echo $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', esc_html( $tab['video'] ), esc_attr( $tab['id'] ) ) ); // Altered in version 1.2.
+						echo wp_kses_post( $embed->autoembed( apply_filters( 'woocommerce_video_product_tab', $tab['video'], $tab['id'] ) ) ); // Altered in version 1.2.
 						echo '</div>';
 					}
 				}
