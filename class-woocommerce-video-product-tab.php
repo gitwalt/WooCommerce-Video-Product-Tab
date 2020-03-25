@@ -176,7 +176,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 				if ( $this->product_has_video_tabs( $product ) ) {
 					foreach ( $this->tab_data as $tab ) {
-						echo "<li><a href=\"#{$tab['id']}\">" . esc_html( $tab['title'] ) . '</a></li>';
+						echo '<li><a href="#' . esc_url( $tab['id'] ) . '">' . esc_html( $tab['title'] ) . '</a></li>';
 					}
 				}
 			}
