@@ -428,12 +428,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 				// Check if a nonce is set.
 				if ( ! isset( $nonce_name ) ) {
-					die( 'Nonce nicht gesetzt' );
+					return;
 				}
 
 				// Check if a nonce is valid.
 				if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
-					die( 'Nonce nicht valide' );
+					return;
 				}
 
 				if ( ! empty( $_POST['_tab_video_title'] ) ) {
