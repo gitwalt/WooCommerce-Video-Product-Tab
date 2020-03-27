@@ -124,8 +124,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			/**
 			 * Gets things started by adding an action to initialize this plugin once
 			 * WooCommerce is known to be active and initialized
-			 *
-			 * @return type
 			 */
 			public function __construct() {
 				self::$plugin_prefix   = 'wc_video_tab_';
@@ -178,8 +176,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * Write the video tab on the product view page for WC 2.0+.
 			 * In WooCommerce these are handled by templates.
 			 *
-			 * @param type $tabs Kommentar.
-			 * @return type
+			 * @param array $tabs get woocommerce tab on the product view page.
+			 * @return array $tabs set video tab on the product view page.
 			 */
 			public function video_product_tabs_two( $tabs ) {
 				global $product;
@@ -256,7 +254,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * false otherwise.
 			 *
 			 * @param object $product Product data.
-			 *
 			 * @return true if there is video tab data, false otherwise.
 			 */
 			private function product_has_video_tabs( $product ) {
