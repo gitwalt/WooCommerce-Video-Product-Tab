@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Video Product Tab
  * Plugin URI: http://www.sebs-studio.com
  * Description: Extends WooCommerce to allow you to add a Video to the Product page. An additional tab is added on the single products page to allow your customers to view the video you embeded.
- * Version: 2.3.1
+ * Version: 3.0.0
  * Author: Sebs Studio
  * Author URI: http://www.sebs-studio.com
  * Requires at least: 5.0
@@ -12,7 +12,7 @@
  * Text Domain: wc_video_product_tab
  * Domain Path: /lang/
  *
- * Copyright: © 2013 Sebs Studio.
+ * Copyright: Â© 2013 Sebs Studio.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -82,42 +82,42 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	if ( ! class_exists( 'WooCommerce_Video_Product_Tab' ) ) {
 		/**
-		 * Wie muss der Kommentar für eine solche Klasse aussehen?
+		 * WooCommerce Video Product Tab
 		 */
 		class WooCommerce_Video_Product_Tab {
 
 			/**
-			 * Kurzbeschreibung
+			 * Plugin prefix
 			 *
-			 * @var type
+			 * @var string
 			 */
 			public static $plugin_prefix;
 
 			/**
-			 * Kurzbeschreibung
+			 * Plugin directory path (URL)
 			 *
-			 * @var type
+			 * @var string
 			 */
 			public static $plugin_url;
 
 			/**
-			 * Kurzbeschreibung
+			 * Plugin directory path
 			 *
-			 * @var type
+			 * @var string
 			 */
 			public static $plugin_path;
 
 			/**
-			 * Kurzbeschreibung
+			 * Plugin basename
 			 *
-			 * @var type
+			 * @var string
 			 */
 			public static $plugin_basefile;
 
 			/**
-			 * Kurzbeschreibung
+			 * Tab Data
 			 *
-			 * @var type
+			 * @var boolean
 			 */
 			private $tab_data = false;
 
