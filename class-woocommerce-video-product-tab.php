@@ -359,6 +359,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
 				$field['type']          = isset( $field['type'] ) ? $field['type'] : 'text';
 
+				// Add nonce for security and authentication.
+				wp_nonce_field( 'tab_video_nonce_action', '_tab_video_nonce' );
+
 				echo '<p class="form-field ' . esc_attr( $field['id'] ) . '_field ' . esc_attr( $field['wrapper_class'] ) . '"><label for="' . esc_attr( $field['id'] ) . '">' . wp_kses_post( $field['label'] ) . '</label><input type="' . esc_attr( $field['type'] ) . '" class="' . esc_attr( $field['class'] ) . '" name="' . esc_attr( $field['name'] ) . '" id="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $field['value'] ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '"' . ( isset( $field['style'] ) ? ' style="' . esc_attr( $field['style'] ) . '"' : '' ) . ' /> ';
 
 				if ( ! empty( $field['description'] ) ) {
@@ -418,6 +421,20 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * @param stdClass $post the post (product).
 			 */
 			public function product_save_data( $post_id, $post ) {
+
+				// Add nonce for security and authentication.
+				$nonce_name   = isset( $_POST['_tab_video_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_tab_video_nonce'] ) ) : '';
+				$nonce_action = 'tab_video_nonce_action';
+
+				// Check if a nonce is set.
+				if ( ! isset( $nonce_name ) ) {
+					die( 'Nonce nicht gesetzt' );
+				}
+
+				// Check if a nonce is valid.
+				if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
+					die( 'Nonce nicht valide' );
+				}
 
 				if ( ! empty( $_POST['_tab_video_title'] ) ) {
 					$tab_title = sanitize_text_field( wp_unslash( $_POST['_tab_video_title'] ) );
