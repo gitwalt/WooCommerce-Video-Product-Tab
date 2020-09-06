@@ -484,7 +484,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	function wc_video_tab_error_notice() {
 		global $current_screen;
 		if ( 'plugins' === $current_screen->parent_base ) {
-			echo '<div class="error"><p>WooCommerce Video Product Tab ' . esc_html( 'requires <a href="http://www.woothemes.com/woocommerce/" target="_blank">WooCommerce</a> to be activated in order to work. Please install and activate <a href="' . admin_url( 'plugin-install.php?tab=search&type=term&s=WooCommerce' ) . '" target="_blank">WooCommerce</a> first.', 'wc_video_product_tab' ) . '</p></div>';
+			echo '<div class="error"><p>WooCommerce Video Product Tab ' . esc_html__( 'requires <a href="http://www.woothemes.com/woocommerce/" target="_blank">WooCommerce</a> to be activated in order to work. Please install and activate <a href="' . admin_url( 'plugin-install.php?tab=search&type=term&s=WooCommerce' ) . '" target="_blank">WooCommerce</a> first.', 'wc_video_product_tab' ) . '</p></div>';
 		}
 	}
 }
